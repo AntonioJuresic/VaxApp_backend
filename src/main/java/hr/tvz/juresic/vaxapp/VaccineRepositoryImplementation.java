@@ -1,13 +1,13 @@
 package hr.tvz.juresic.vaxapp;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
+@Repository
 public class VaccineRepositoryImplementation implements VaccineRepository{
 
     private final List<Vaccine> MOCKED_VACCINES = Arrays.asList(
