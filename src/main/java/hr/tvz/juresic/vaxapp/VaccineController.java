@@ -26,6 +26,17 @@ public class VaccineController {
         return vaccineServiceImplementation.findVaccineByResearchName(researchName);
     }
 
+    @GetMapping(params = "oneDose")
+    public List<VaccineDTO> getVaccineByDose(@RequestParam final boolean oneDose) {
+        if (oneDose == true) {
+            System.out.println("Vracam cjepiva s jednom dozom");
+            return vaccineServiceImplementation.findVaccineWithOneDose();
+        } else {
+            System.out.println("Vracam cjepiva s vise doza");
+            return vaccineServiceImplementation.findVaccineWithMultipleDoses();
+        }
+    }
+
     //REST API TEST
     /*@GetMapping
     public String getAllVaccines(){

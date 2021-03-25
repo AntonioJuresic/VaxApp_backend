@@ -24,7 +24,17 @@ public class VaccineServiceImplementation implements VaccineService{
         return vaccineRepositoryImplementation.findVaccineByResearchName(researchName).map(this::mapVaccinesToDTO).orElse(null);
     }
 
+    @Override
+    public List<VaccineDTO> findVaccineWithOneDose() {
+        return vaccineRepositoryImplementation.findVaccineWithOneDose().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VaccineDTO> findVaccineWithMultipleDoses() {
+        return vaccineRepositoryImplementation.findVaccineWithMultipleDoses().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
+    }
+
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
-        return new VaccineDTO(vaccine.getManufacturerName(), vaccine.getAvailableDoses());
+        return new VaccineDTO(vaccine.getManufacturerName(), vaccine.getNumberOfDoses());
     }
 }

@@ -7,4 +7,6 @@ public interface VaccineRepository {
     List<Vaccine> findAll();
 
     Optional<Vaccine> findVaccineByResearchName(String researchName);
+    List<Vaccine> findVaccineWithOneDose();
+    List<Vaccine> findVaccineWithMultipleDoses();
 }
