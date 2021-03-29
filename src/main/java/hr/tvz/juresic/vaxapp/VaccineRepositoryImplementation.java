@@ -2,27 +2,36 @@ package hr.tvz.juresic.vaxapp;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
-public class VaccineRepositoryImplementation implements VaccineRepository{
+public class VaccineRepositoryImplementation implements VaccineRepository {
 
-    private final List<Vaccine> MOCKED_VACCINES = Arrays.asList(
-            new Vaccine("Sinovac", "China", Vaccine.VaccineType.RNA, 2, 20),
-            new Vaccine("Sputnik", "Russia", Vaccine.VaccineType.RNA, 4, 10),
-            new Vaccine("Moderna", "France", Vaccine.VaccineType.RNA, 1, 40)
-    );
+    private List<Vaccine> mockedVaccines = new ArrayList<Vaccine>();
+
+    public VaccineRepositoryImplementation() {
+        mockedVaccines.add(new Vaccine("Sinovac", "China", Vaccine.VaccineType.RNA, 2, 20));
+        mockedVaccines.add(new Vaccine("Sputnik", "Russia", Vaccine.VaccineType.RNA, 4, 10));
+        mockedVaccines.add(new Vaccine("Moderna", "France", Vaccine.VaccineType.RNA, 1, 40));
+    }
 
     @Override
     public List<Vaccine> findAll() {
-        return MOCKED_VACCINES;
+        return mockedVaccines;
     }
 
     @Override
     public Optional<Vaccine> findVaccineByResearchName(final String researchName) {
-        return MOCKED_VACCINES.stream().filter(v -> Objects.equals(v.getResearchName(), researchName)).findAny();
+        return mockedVaccines.stream().filter(v -> Objects.equals(v.getResearchName(), researchName)).findAny();
+    }
+
+    @Override
+    public String saveVaccine(Vaccine newVaccine) {
+        if (mockedVaccines.contains(newVaccine)) {
+            return "Vaccine already exists";
+        } else {
+            mockedVaccines.add(newVaccine);
+            return "New Vaccine added";
+        }
     }
 }

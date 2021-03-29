@@ -15,6 +15,8 @@ public class Vaccine {
     private Integer numberOfDoses;
     private Integer availableDoses;
 
+    public Vaccine() {}
+
     public Vaccine(String researchName, String manufacturerName, VaccineType vaccineType, Integer numberOfDoses, Integer availableDoses) {
         this.researchName = researchName;
         this.manufacturerName = manufacturerName;

@@ -1,10 +1,13 @@
 package hr.tvz.juresic.vaxapp;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface VaccineService {
     List<VaccineDTO> findAll();
 
     VaccineDTO findVaccineByResearchName(String researchName);
+
+    String saveVaccine(VaccineCommand vaccineCommand);
 }
