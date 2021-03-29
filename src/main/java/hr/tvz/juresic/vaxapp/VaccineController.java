@@ -28,44 +28,24 @@ public class VaccineController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addVaccine(@Valid @RequestBody final VaccineCommand vaccineCommand) {
-        String status = vaccineServiceImplementation.saveVaccine(vaccineCommand);
+    public ResponseEntity<VaccineDTO> addVaccine(@Valid @RequestBody final VaccineCommand vaccineCommand) {
+        VaccineDTO newVaccineDTO = vaccineServiceImplementation.saveVaccine(vaccineCommand);
 
-        if(status.equals("New Vaccine added")) {
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body("New Vaccine added");
-        } else {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("Vaccine already exists");
-        }
+        if(newVaccineDTO != null)
+            return ResponseEntity.status(HttpStatus.CREATED).body(newVaccineDTO);
+        else
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    /*@PostMapping
-    public ResponseEntity<VaccineDTO> addVaccine(@Valid @RequestBody final VaccineCommand vaccineCommand) {
-        return vaccineServiceImplementation.saveVaccine(vaccineCommand)
-                .map(
-                        vaccineDTO -> ResponseEntity
-                            .status(HttpStatus.CREATED)
-                            .body(vaccineDTO)
-                )
-                .orElseGet(
-                        () -> ResponseEntity
-                            .status(HttpStatus.CONFLICT)
-                            .build()
-                );
-    }*/
+    @PutMapping("/{researchName}")
+    public ResponseEntity<VaccineDTO> updateVaccine(@PathVariable final String researchName, @Valid @RequestBody final VaccineCommand vaccineCommand) {
+        VaccineDTO updatedVaccineDTO = vaccineServiceImplementation.updateVaccine(researchName, vaccineCommand);
 
-
-    /*@PutMapping("/{researchName}")
-    public ResponseEntity<VaccineDTO> updateVaccine(@PathVariable final String researchName, @Valid @RequestBody final VaccineCommand vaccineCommad) {
-        return vaccineServiceImplementation.updateVaccine(researchName, vaccineCommad)
-                .map(ResponseEntity::ok)
-                .orElseGet(
-                        () -> ResponseEntity.notFound().build()
-                );
-    }*/
+        if(updatedVaccineDTO != null)
+            return ResponseEntity.status(HttpStatus.OK).body(updatedVaccineDTO);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
     /*@ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{researchName}")

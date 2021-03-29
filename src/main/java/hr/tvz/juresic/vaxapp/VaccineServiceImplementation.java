@@ -27,7 +27,7 @@ public class VaccineServiceImplementation implements VaccineService{
     }
 
     @Override
-    public String saveVaccine(VaccineCommand vaccineCommand) {
+    public VaccineDTO saveVaccine(VaccineCommand vaccineCommand) {
         Vaccine newVaccine = new Vaccine();
 
         newVaccine.setResearchName(vaccineCommand.getResearchName());
@@ -36,7 +36,28 @@ public class VaccineServiceImplementation implements VaccineService{
         newVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        return vaccineRepositoryImplementation.saveVaccine(newVaccine);
+        if (vaccineRepositoryImplementation.saveVaccine(newVaccine) != null) {
+            return new VaccineDTO(newVaccine.getManufacturerName(), newVaccine.getAvailableDoses());
+        }
+
+        return null;
+    }
+
+    @Override
+    public VaccineDTO updateVaccine(String researchName, VaccineCommand vaccineCommand) {
+        Vaccine updatedVaccine = new Vaccine();
+
+        updatedVaccine.setResearchName(researchName);
+        updatedVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
+        updatedVaccine.setVaccineType(Vaccine.VaccineType.valueOf(vaccineCommand.getVaccineType()));
+        updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
+        updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
+
+        if (vaccineRepositoryImplementation.updateVaccine(researchName, updatedVaccine) != null) {
+            return new VaccineDTO(updatedVaccine.getManufacturerName(), updatedVaccine.getAvailableDoses());
+        }
+
+        return null;
     }
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {

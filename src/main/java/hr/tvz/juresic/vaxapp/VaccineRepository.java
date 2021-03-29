@@ -8,5 +8,6 @@ public interface VaccineRepository {
 
     Optional<Vaccine> findVaccineByResearchName(String researchName);
 
-    String saveVaccine(Vaccine newVaccine);
+    Vaccine saveVaccine(Vaccine newVaccine);
+    Vaccine updateVaccine(String researchName, Vaccine updatedVaccine);
 }

@@ -9,5 +9,6 @@ public interface VaccineService {
 
     VaccineDTO findVaccineByResearchName(String researchName);
 
-    String saveVaccine(VaccineCommand vaccineCommand);
+    VaccineDTO saveVaccine(VaccineCommand vaccineCommand);
+    VaccineDTO updateVaccine(String researchName, VaccineCommand vaccineCommand);
 }
