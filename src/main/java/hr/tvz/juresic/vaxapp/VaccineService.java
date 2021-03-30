@@ -11,4 +11,5 @@ public interface VaccineService {
 
     VaccineDTO saveVaccine(VaccineCommand vaccineCommand);
     VaccineDTO updateVaccine(String researchName, VaccineCommand vaccineCommand);
+    String deleteVaccine(String researchName);
 }

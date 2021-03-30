@@ -10,4 +10,5 @@ public interface VaccineRepository {
 
     Vaccine saveVaccine(Vaccine newVaccine);
     Vaccine updateVaccine(String researchName, Vaccine updatedVaccine);
+    String deleteVaccine(String researchName);
 }

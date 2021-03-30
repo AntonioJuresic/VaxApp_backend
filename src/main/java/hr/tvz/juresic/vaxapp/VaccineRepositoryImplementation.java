@@ -50,4 +50,20 @@ public class VaccineRepositoryImplementation implements VaccineRepository {
 
         return null;
     }
+
+    @Override
+    public String deleteVaccine(String researchName) {
+        ListIterator<Vaccine> iterator = mockedVaccines.listIterator();
+
+        while (iterator.hasNext()) {
+            Vaccine currentVaccine = iterator.next();
+
+            if (currentVaccine.getResearchName().equals(researchName)) {
+                iterator.remove();
+                return "success";
+            }
+        }
+
+        return null;
+    }
 }

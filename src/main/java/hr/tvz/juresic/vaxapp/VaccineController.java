@@ -23,8 +23,15 @@ public class VaccineController {
     }
 
     @GetMapping("/{researchName}")
-    public VaccineDTO getVaccineByResearchName(@PathVariable final String researchName) {
-        return vaccineServiceImplementation.findVaccineByResearchName(researchName);
+    public ResponseEntity<VaccineDTO> getVaccineByResearchName(@PathVariable final String researchName) {
+        VaccineDTO vaccineDTO = vaccineServiceImplementation.findVaccineByResearchName(researchName);
+
+        if(vaccineDTO != null)
+            return ResponseEntity.status(HttpStatus.OK).body(vaccineDTO);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        //return vaccineServiceImplementation.findVaccineByResearchName(researchName);
     }
 
     @PostMapping
@@ -47,12 +54,14 @@ public class VaccineController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    /*@ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{researchName}")
-    public void delete(@PathVariable final String researchName){
-        System.out.println(researchName);
-        vaccineServiceImplementation.deleteVaccine(researchName);
-    }*/
+    public ResponseEntity deleteVaccine(@PathVariable final String researchName){
+        String deleteStatus = vaccineServiceImplementation.deleteVaccine(researchName);
 
+        if(deleteStatus != null)
+            return ResponseEntity.status(HttpStatus.OK).build();
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
 }

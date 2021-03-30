@@ -60,6 +60,11 @@ public class VaccineServiceImplementation implements VaccineService{
         return null;
     }
 
+    @Override
+    public String deleteVaccine(String researchName) {
+        return vaccineRepositoryImplementation.deleteVaccine(researchName);
+    }
+
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
         return new VaccineDTO(vaccine.getManufacturerName(), vaccine.getAvailableDoses());
     }
