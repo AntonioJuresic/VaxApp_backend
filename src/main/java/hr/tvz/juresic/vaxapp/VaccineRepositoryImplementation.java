@@ -27,12 +27,25 @@ public class VaccineRepositoryImplementation implements VaccineRepository {
 
     @Override
     public Vaccine saveVaccine(Vaccine newVaccine) {
-        if (mockedVaccines.contains(newVaccine)) {
+        ListIterator<Vaccine> iterator = mockedVaccines.listIterator();
+
+        while (iterator.hasNext()) {
+            Vaccine currentVaccine = iterator.next();
+
+            if (currentVaccine.getResearchName().equals(newVaccine.getResearchName())) {
+                return null;
+            }
+        }
+
+        mockedVaccines.add(newVaccine);
+        return newVaccine;
+
+        /*if (mockedVaccines.contains(newVaccine)) {
             return null;
         } else {
             mockedVaccines.add(newVaccine);
             return newVaccine;
-        }
+        }*/
     }
 
     @Override
