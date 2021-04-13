@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("vaccine")
 public class VaccineController {
@@ -18,8 +19,8 @@ public class VaccineController {
     }
 
     @GetMapping
-    public List<VaccineDTO> getAllVaccines(){
-        return vaccineServiceImplementation.findAll();
+    public ResponseEntity<List<VaccineDTO>> getAllVaccines(){
+        return ResponseEntity.status(HttpStatus.OK).body(vaccineServiceImplementation.findAll());
     }
 
     @GetMapping("/{researchName}")
@@ -30,8 +31,6 @@ public class VaccineController {
             return ResponseEntity.status(HttpStatus.OK).body(vaccineDTO);
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        //return vaccineServiceImplementation.findVaccineByResearchName(researchName);
     }
 
     @PostMapping

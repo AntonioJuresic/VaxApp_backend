@@ -39,13 +39,6 @@ public class VaccineRepositoryImplementation implements VaccineRepository {
 
         mockedVaccines.add(newVaccine);
         return newVaccine;
-
-        /*if (mockedVaccines.contains(newVaccine)) {
-            return null;
-        } else {
-            mockedVaccines.add(newVaccine);
-            return newVaccine;
-        }*/
     }
 
     @Override

@@ -36,8 +36,10 @@ public class VaccineServiceImplementation implements VaccineService{
         newVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        if (vaccineRepositoryImplementation.saveVaccine(newVaccine) != null) {
-            return new VaccineDTO(newVaccine.getManufacturerName(), newVaccine.getAvailableDoses());
+        Vaccine newlyAddedVaccine = vaccineRepositoryImplementation.saveVaccine(newVaccine);
+
+        if (newlyAddedVaccine != null) {
+            return mapVaccinesToDTO(newlyAddedVaccine);
         }
 
         return null;
@@ -53,8 +55,10 @@ public class VaccineServiceImplementation implements VaccineService{
         updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        if (vaccineRepositoryImplementation.updateVaccine(researchName, updatedVaccine) != null) {
-            return new VaccineDTO(updatedVaccine.getManufacturerName(), updatedVaccine.getAvailableDoses());
+        Vaccine newlyUpdateVaccine = vaccineRepositoryImplementation.updateVaccine(researchName, updatedVaccine);
+
+        if (newlyUpdateVaccine != null) {
+            return mapVaccinesToDTO(newlyUpdateVaccine);
         }
 
         return null;
@@ -66,6 +70,6 @@ public class VaccineServiceImplementation implements VaccineService{
     }
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
-        return new VaccineDTO(vaccine.getManufacturerName(), vaccine.getAvailableDoses());
+        return new VaccineDTO(vaccine.getResearchName(), vaccine.getManufacturerName(), vaccine.getAvailableDoses());
     }
 }
