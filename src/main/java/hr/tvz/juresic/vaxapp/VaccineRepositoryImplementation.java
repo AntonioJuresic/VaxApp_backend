@@ -7,12 +7,21 @@ import java.util.*;
 @Repository
 public class VaccineRepositoryImplementation implements VaccineRepository {
 
-    private List<Vaccine> mockedVaccines = new ArrayList<Vaccine>();
+    //private List<Vaccine> mockedVaccines = new ArrayList<Vaccine>();
+
+    private List<Vaccine> mockedVaccines = new ArrayList<>(Arrays.asList(
+            new Vaccine("AZD1222", "Astra Zeneca", "VIRAL_VECTOR", 1, 2000),
+            new Vaccine("BNT162b2", "Pfizer-BioNTech", "RNA", 2, 42000),
+            new Vaccine("mRNA-1273", "Moderna", "RNA", 2, 50000),
+            new Vaccine("JNJ-78436735", "Johnson & Johnson", "VIRAL_VECTOR", 3, 40000),
+            new Vaccine("BBIBP-CorV", "Sinopharm", "VIRAL_VECTOR", 2, 40000)));
+
+
 
     public VaccineRepositoryImplementation() {
-        mockedVaccines.add(new Vaccine("Sinovac", "China", Vaccine.VaccineType.RNA, 2, 20));
-        mockedVaccines.add(new Vaccine("Sputnik", "Russia", Vaccine.VaccineType.RNA, 4, 10));
-        mockedVaccines.add(new Vaccine("Moderna", "France", Vaccine.VaccineType.RNA, 1, 40));
+        //mockedVaccines.add(new Vaccine("Sinovac", "China", Vaccine.VaccineType.RNA, 2, 20));
+        //mockedVaccines.add(new Vaccine("Sputnik", "Russia", Vaccine.VaccineType.RNA, 4, 10));
+        //mockedVaccines.add(new Vaccine("Moderna", "France", Vaccine.VaccineType.RNA, 1, 40));
     }
 
     @Override

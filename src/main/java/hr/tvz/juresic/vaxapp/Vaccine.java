@@ -17,10 +17,10 @@ public class Vaccine {
 
     public Vaccine() {}
 
-    public Vaccine(String researchName, String manufacturerName, VaccineType vaccineType, Integer numberOfDoses, Integer availableDoses) {
+    public Vaccine(String researchName, String manufacturerName, String vaccineType, Integer numberOfDoses, Integer availableDoses) {
         this.researchName = researchName;
         this.manufacturerName = manufacturerName;
-        this.vaccineType = vaccineType;
+        this.vaccineType = Vaccine.VaccineType.valueOf(vaccineType);
         this.numberOfDoses = numberOfDoses;
         this.availableDoses = availableDoses;
     }
