@@ -55,9 +55,9 @@ public class VaccineController {
 
     @DeleteMapping("/{researchName}")
     public ResponseEntity deleteVaccine(@PathVariable final String researchName){
-        String deleteStatus = vaccineServiceImplementation.deleteVaccine(researchName);
+        Integer deleteRows = vaccineServiceImplementation.deleteVaccine(researchName);
 
-        if(deleteStatus != null)
+        if(deleteRows != 0)
             return ResponseEntity.status(HttpStatus.OK).build();
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

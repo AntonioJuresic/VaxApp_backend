@@ -10,20 +10,20 @@ import java.util.stream.Collectors;
 @Service
 public class VaccineServiceImplementation implements VaccineService{
 
-    private final VaccineRepositoryImplementation vaccineRepositoryImplementation;
+    private final JDBCVaccineRepository jDBCVaccineRepository;
 
-    public VaccineServiceImplementation(VaccineRepositoryImplementation vaccineRepositoryImplementation) {
-        this.vaccineRepositoryImplementation = vaccineRepositoryImplementation;
+    public VaccineServiceImplementation(JDBCVaccineRepository jDBCVaccineRepository) {
+        this.jDBCVaccineRepository = jDBCVaccineRepository;
     }
 
     @Override
     public List<VaccineDTO> findAll() {
-        return vaccineRepositoryImplementation.findAll().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
+        return jDBCVaccineRepository.findAll().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
     }
 
     @Override
     public VaccineDTO findVaccineByResearchName(String researchName) {
-        return vaccineRepositoryImplementation.findVaccineByResearchName(researchName).map(this::mapVaccinesToDTO).orElse(null);
+        return jDBCVaccineRepository.findVaccineByResearchName(researchName).map(this::mapVaccinesToDTO).orElse(null);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class VaccineServiceImplementation implements VaccineService{
         newVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        Vaccine newlyAddedVaccine = vaccineRepositoryImplementation.saveVaccine(newVaccine);
+        Vaccine newlyAddedVaccine = jDBCVaccineRepository.saveVaccine(newVaccine);
 
         if (newlyAddedVaccine != null) {
             return mapVaccinesToDTO(newlyAddedVaccine);
@@ -55,7 +55,7 @@ public class VaccineServiceImplementation implements VaccineService{
         updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        Vaccine newlyUpdateVaccine = vaccineRepositoryImplementation.updateVaccine(researchName, updatedVaccine);
+        Vaccine newlyUpdateVaccine = jDBCVaccineRepository.updateVaccine(researchName, updatedVaccine);
 
         if (newlyUpdateVaccine != null) {
             return mapVaccinesToDTO(newlyUpdateVaccine);
@@ -65,8 +65,8 @@ public class VaccineServiceImplementation implements VaccineService{
     }
 
     @Override
-    public String deleteVaccine(String researchName) {
-        return vaccineRepositoryImplementation.deleteVaccine(researchName);
+    public Integer deleteVaccine(String researchName) {
+        return jDBCVaccineRepository.deleteVaccine(researchName);
     }
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
