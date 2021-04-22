@@ -63,4 +63,9 @@ public class VaccineController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @GetMapping("/find/{researchName}")
+    public ResponseEntity<List<VaccineDTO>> findVaccineWhichBegginsWith(@PathVariable final String researchName) {
+        return ResponseEntity.status(HttpStatus.OK).body(vaccineServiceImplementation.findVaccineWhichBegginsWith(researchName));
+    }
+
 }

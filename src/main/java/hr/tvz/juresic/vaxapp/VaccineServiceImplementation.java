@@ -1,9 +1,7 @@
 package hr.tvz.juresic.vaxapp;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,5 +69,10 @@ public class VaccineServiceImplementation implements VaccineService{
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
         return new VaccineDTO(vaccine.getResearchName(), vaccine.getManufacturerName(), vaccine.getAvailableDoses());
+    }
+
+    @Override
+    public List<VaccineDTO> findVaccineWhichBegginsWith(String researchName) {
+        return jDBCVaccineRepository.findVaccineWhichBegginsWith(researchName).stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
     }
 }

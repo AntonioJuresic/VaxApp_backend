@@ -69,7 +69,7 @@ public class JDBCVaccineRepository implements VaccineRepository{
 
     @Override
     public Optional<Vaccine> findVaccineByResearchName(String researchName) {
-        Vaccine vaccine = jdbc.queryForObject("SELECT * FROM Vaccine WHERE researchName = ?",
+        Vaccine vaccine = jdbc.queryForObject("SELECT * FROM Vaccine WHERE researchName = ?;",
                 this::mapRowToVaccine, researchName);
 
         Optional<Vaccine> optionalVaccine = Optional.ofNullable(vaccine);
@@ -99,5 +99,11 @@ public class JDBCVaccineRepository implements VaccineRepository{
         vaccine.setAvailableDoses(rs.getInt("availableDoses"));
 
         return vaccine;
+    }
+
+    @Override
+    public List<Vaccine> findVaccineWhichBegginsWith(String researchName) {
+        String sqlQuery = "SELECT * FROM Vaccine WHERE LOWER(Vaccine.researchName) LIKE ?";
+        return jdbc.query(sqlQuery, this::mapRowToVaccine, (researchName.toLowerCase() + "%"));
     }
 }

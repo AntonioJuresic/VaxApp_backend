@@ -10,4 +10,6 @@ public interface VaccineRepository {
 
     Optional<Vaccine>findVaccineByResearchName(String researchName);
     Integer deleteVaccine(String researchName);
+
+    List<Vaccine> findVaccineWhichBegginsWith(String researchName);
 }

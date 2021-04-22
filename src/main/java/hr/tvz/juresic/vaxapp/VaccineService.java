@@ -12,4 +12,6 @@ public interface VaccineService {
     VaccineDTO saveVaccine(VaccineCommand vaccineCommand);
     VaccineDTO updateVaccine(String researchName, VaccineCommand vaccineCommand);
     Integer deleteVaccine(String researchName);
+
+    List<VaccineDTO> findVaccineWhichBegginsWith(String researchName);
 }
