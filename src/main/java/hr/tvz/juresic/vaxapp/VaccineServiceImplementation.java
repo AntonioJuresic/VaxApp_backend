@@ -1,29 +1,28 @@
 package hr.tvz.juresic.vaxapp;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class VaccineServiceImplementation implements VaccineService{
 
-    private final JDBCVaccineRepository jDBCVaccineRepository;
+    private final VaccineRepository vaccineRepository;
 
-    public VaccineServiceImplementation(JDBCVaccineRepository jDBCVaccineRepository) {
-        this.jDBCVaccineRepository = jDBCVaccineRepository;
+    public VaccineServiceImplementation(VaccineRepository vaccineRepository) {
+        this.vaccineRepository = vaccineRepository;
     }
 
     @Override
     public List<VaccineDTO> findAll() {
-        return jDBCVaccineRepository.findAll().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
+        return vaccineRepository.findAll().stream().map(this::mapVaccinesToDTO).collect(Collectors.toList());
     }
 
     @Override
     public VaccineDTO findVaccineByResearchName(String researchName) {
-        return jDBCVaccineRepository.findVaccineByResearchName(researchName).map(this::mapVaccinesToDTO).orElse(null);
+        return vaccineRepository.findByResearchName(researchName).stream().findFirst().map(this::mapVaccinesToDTO).orElse(null);
     }
 
     @Override
@@ -32,33 +31,31 @@ public class VaccineServiceImplementation implements VaccineService{
 
         newVaccine.setResearchName(vaccineCommand.getResearchName());
         newVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
-        newVaccine.setVaccineType(Vaccine.VaccineType.valueOf(vaccineCommand.getVaccineType()));
+        newVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getVaccineType()));
         newVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        Vaccine newlyAddedVaccine = jDBCVaccineRepository.saveVaccine(newVaccine);
+        Vaccine newlyAddedVaccine = vaccineRepository.saveAndFlush(newVaccine);
 
-        if (newlyAddedVaccine != null) {
-            return mapVaccinesToDTO(newlyAddedVaccine);
-        }
-
-        return null;
+        return mapVaccinesToDTO(newlyAddedVaccine);
     }
 
     @Override
     public VaccineDTO updateVaccine(String researchName, VaccineCommand vaccineCommand) {
-        Vaccine updatedVaccine = new Vaccine();
+        //Riješenje preuzeto s interneta
+        //https://www.baeldung.com/spring-data-partial-update
 
-        updatedVaccine.setResearchName(researchName);
-        updatedVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
-        updatedVaccine.setVaccineType(Vaccine.VaccineType.valueOf(vaccineCommand.getVaccineType()));
-        updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
-        updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
+        Vaccine updatedVaccine = vaccineRepository.findByResearchName(researchName).stream().findFirst().orElse(null);
 
-        Vaccine newlyUpdateVaccine = jDBCVaccineRepository.updateVaccine(researchName, updatedVaccine);
+        if(updatedVaccine != null) {
+            updatedVaccine.setResearchName(researchName);
+            updatedVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
+            updatedVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getVaccineType()));
+            updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
+            updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        if (newlyUpdateVaccine != null) {
-            return mapVaccinesToDTO(newlyUpdateVaccine);
+            return mapVaccinesToDTO(vaccineRepository.saveAndFlush(updatedVaccine));
+
         }
 
         return null;
@@ -66,7 +63,7 @@ public class VaccineServiceImplementation implements VaccineService{
 
     @Override
     public Integer deleteVaccine(String researchName) {
-        return jDBCVaccineRepository.deleteVaccine(researchName);
+        return vaccineRepository.removeByResearchName(researchName);
     }
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {

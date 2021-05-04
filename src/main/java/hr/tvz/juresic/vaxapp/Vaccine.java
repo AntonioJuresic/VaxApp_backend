@@ -1,27 +1,46 @@
 package hr.tvz.juresic.vaxapp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
+
+enum VaccineType {
+    RNA, VIRAL_VECTOR
+}
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@Entity
+@Table(name="Vaccine")
 public class Vaccine {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="researchName")
     private String researchName;
+
+    @Column(name="manufacturerName")
     private String manufacturerName;
 
+    @Column(name="vaccineType")
+    @Enumerated(EnumType.STRING)
+    @JoinTable(name = "VaccineType", joinColumns = @JoinColumn(name = "vaccineTypeName"))
     private VaccineType vaccineType;
-    public static enum VaccineType {
-        RNA, VIRAL_VECTOR
-    }
 
+    @Column(name="numberOfDoses")
     private Integer numberOfDoses;
+
+    @Column(name="availableDoses")
     private Integer availableDoses;
 
-    public Vaccine() {}
-
-    public Vaccine(String researchName, String manufacturerName, String vaccineType, Integer numberOfDoses, Integer availableDoses) {
-        this.researchName = researchName;
-        this.manufacturerName = manufacturerName;
-        this.vaccineType = Vaccine.VaccineType.valueOf(vaccineType);
-        this.numberOfDoses = numberOfDoses;
-        this.availableDoses = availableDoses;
-    }
+    @OneToMany(mappedBy = "vaccine", fetch = FetchType.EAGER)
+    private List<SideEffect> sideEffectList;
 }

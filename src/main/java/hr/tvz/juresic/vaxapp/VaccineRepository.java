@@ -1,13 +1,15 @@
 package hr.tvz.juresic.vaxapp;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.Optional;
 
-public interface VaccineRepository {
-    List<Vaccine> findAll();
-    Vaccine saveVaccine(Vaccine newVaccine);
-    Vaccine updateVaccine(String researchName, Vaccine updatedVaccine);
+@Repository
+public interface VaccineRepository extends JpaRepository<Vaccine, Long> {
+    List<Vaccine> findByResearchName(String reserachName);
 
-    Optional<Vaccine>findVaccineByResearchName(String researchName);
-    Integer deleteVaccine(String researchName);
+    @Transactional
+    Integer removeByResearchName(String researchName);
 }
