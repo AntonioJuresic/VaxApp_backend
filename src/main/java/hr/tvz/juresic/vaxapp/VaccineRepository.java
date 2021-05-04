@@ -11,5 +11,5 @@ public interface VaccineRepository extends JpaRepository<Vaccine, Long> {
     List<Vaccine> findByResearchName(String reserachName);
 
     @Transactional
-    Integer removeByResearchName(String researchName);
+    Integer removeByResearchName(String reserachName);
 }
