@@ -7,4 +7,10 @@ VALUES (1, 'AZD1222', 'Astra Zeneca', 'VIRAL_VECTOR', 1, 2000),
 
 INSERT INTO SideEffect(shortDescription, longDescription, frequency, vaccineId)
 VALUES ('Crvenilo', 'Crvenilo kod ušiju.', 10, 1),
-       ('Glavobolja', 'Glavobolja koja traje tri dana.', 10, 1);
+       ('Glavobolja', 'Glavobolja koja traje tri dana.', 10, 1),
+
+       ('Mučnina', 'Mučnina koja traje dva dana.', 20, 2),
+       ('Crvenilo', 'Crvenilo kože.', 50, 2),
+       ('Glavobolja', 'Glavobolja koja traje tri dana.', 6, 2),
+
+       ('Glavobolja', 'Glavobolja koja traje tri dana.', 10, 3);
