@@ -25,7 +25,7 @@ public class SideEffectController {
 
     @GetMapping("/{researchName}")
     public ResponseEntity<List<SideEffectDTO>> getVaccineByResearchName(@PathVariable final String researchName) {
-        return ResponseEntity.status(HttpStatus.OK).body(sideEffectServiceImplementation.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(sideEffectServiceImplementation.findSideEffectByVaccineResearchName(researchName));
         /*SideEffectDTO sideEffectDTO = sideEffectServiceImplementation.findSideEffectByVaccineResearchName(researchName);
 
         if(sideEffectDTO != null)
