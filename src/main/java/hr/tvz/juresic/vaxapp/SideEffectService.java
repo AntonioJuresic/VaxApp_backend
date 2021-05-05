@@ -5,5 +5,5 @@ import java.util.List;
 public interface SideEffectService {
     List<SideEffectDTO> findAll();
 
-    SideEffectDTO findSideEffectByVaccineResearchName(String researchName);
+    List<SideEffectDTO> findSideEffectByVaccineResearchName(String researchName);
 }

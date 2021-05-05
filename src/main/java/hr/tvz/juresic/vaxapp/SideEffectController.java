@@ -24,12 +24,13 @@ public class SideEffectController {
     }
 
     @GetMapping("/{researchName}")
-    public ResponseEntity<SideEffectDTO> getVaccineByResearchName(@PathVariable final String researchName) {
-        SideEffectDTO sideEffectDTO = sideEffectServiceImplementation.findSideEffectByVaccineResearchName(researchName);
+    public ResponseEntity<List<SideEffectDTO>> getVaccineByResearchName(@PathVariable final String researchName) {
+        return ResponseEntity.status(HttpStatus.OK).body(sideEffectServiceImplementation.findAll());
+        /*SideEffectDTO sideEffectDTO = sideEffectServiceImplementation.findSideEffectByVaccineResearchName(researchName);
 
         if(sideEffectDTO != null)
             return ResponseEntity.status(HttpStatus.OK).body(sideEffectDTO);
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();*/
     }
 }

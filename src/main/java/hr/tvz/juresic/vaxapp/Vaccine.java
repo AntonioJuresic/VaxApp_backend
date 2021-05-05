@@ -41,6 +41,6 @@ public class Vaccine {
     @Column(name="availableDoses")
     private Integer availableDoses;
 
-    @OneToMany(mappedBy = "vaccine", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "vaccine", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SideEffect> sideEffectList;
 }

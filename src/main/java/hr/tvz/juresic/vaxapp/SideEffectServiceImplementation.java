@@ -20,8 +20,8 @@ public class SideEffectServiceImplementation implements SideEffectService{
     }
 
     @Override
-    public SideEffectDTO findSideEffectByVaccineResearchName(String researchName) {
-        return sideEffectRepository.findByVaccine_ResearchName(researchName).stream().findFirst().map(this::mapSideEffectsToDTO).orElse(null);
+    public List<SideEffectDTO> findSideEffectByVaccineResearchName(String researchName) {
+        return sideEffectRepository.findByVaccine_ResearchName(researchName).stream().map(this::mapSideEffectsToDTO).collect(Collectors.toList());
     }
 
     private SideEffectDTO mapSideEffectsToDTO(final SideEffect sideEffect) {
