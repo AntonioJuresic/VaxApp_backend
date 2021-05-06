@@ -11,14 +11,16 @@ public class SideEffectDTO {
 
     String shortDescription;
     String longDescription;
-    Integer frequency;
 
-    @Override
+    Integer frequency;
+    String vaccineResearchName;
+
+    /*@Override
     public String toString() {
         return "SideEffectDTO{"
                 + "shortDescription" + this.shortDescription + "'\n,"
                 + "longDescription" + this.longDescription + "'\n,"
                 + "frequency" + this.frequency + "'}";
-    }
+    }*/
 
 }

@@ -33,4 +33,9 @@ public class SideEffectController {
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();*/
     }
+
+    @GetMapping("/search/{shortDescription}")
+    public ResponseEntity<List<SideEffectDTO>> getVaccineByShortDescription(@PathVariable final String shortDescription) {
+        return ResponseEntity.status(HttpStatus.OK).body(sideEffectServiceImplementation.findSideEffectByShortDescription(shortDescription));
+    }
 }

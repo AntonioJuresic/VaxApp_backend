@@ -24,7 +24,12 @@ public class SideEffectServiceImplementation implements SideEffectService{
         return sideEffectRepository.findByVaccine_ResearchName(researchName).stream().map(this::mapSideEffectsToDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<SideEffectDTO> findSideEffectByShortDescription(String ShortDescription) {
+        return sideEffectRepository.findByShortDescriptionContainingIgnoreCase(ShortDescription).stream().map(this::mapSideEffectsToDTO).collect(Collectors.toList());
+    }
+
     private SideEffectDTO mapSideEffectsToDTO(final SideEffect sideEffect) {
-        return new SideEffectDTO(sideEffect.getShortDescription(), sideEffect.getLongDescription(), sideEffect.getFrequency());
+        return new SideEffectDTO(sideEffect.getShortDescription(), sideEffect.getLongDescription(), sideEffect.getFrequency(), sideEffect.getVaccine().getResearchName());
     }
 }

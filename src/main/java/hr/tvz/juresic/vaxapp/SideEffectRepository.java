@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface SideEffectRepository extends JpaRepository<SideEffect, Long> {
     List<SideEffect> findByVaccine_ResearchName(String researchName);
+
+    List<SideEffect> findByShortDescriptionContainingIgnoreCase(String shortDescription);
 }
