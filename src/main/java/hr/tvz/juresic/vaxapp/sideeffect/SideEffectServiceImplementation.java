@@ -1,4 +1,4 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.sideeffect;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,6 @@ public class SideEffectServiceImplementation implements SideEffectService{
     }
 
     private SideEffectDTO mapSideEffectsToDTO(final SideEffect sideEffect) {
-        return new SideEffectDTO(sideEffect.getShortDescription(), sideEffect.getLongDescription(), sideEffect.getFrequency());
+        return new SideEffectDTO(sideEffect.getShortDescription(), sideEffect.getDescription(), sideEffect.getFrequency());
     }
 }

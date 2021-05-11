@@ -1,5 +1,6 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.sideeffect;
 
+import hr.tvz.juresic.vaxapp.vaccine.Vaccine;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,23 +11,23 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name="SideEffect")
+@Table(name="side_effect")
 public class SideEffect implements Serializable {
     @Id
     @Column(name="id")
     @GeneratedValue
     private Long id;
 
-    @Column(name="shortDescription")
+    @Column(name="short_description")
     String shortDescription;
 
-    @Column(name="longDescription")
-    String longDescription;
+    @Column(name="description")
+    String description;
 
     @Column(name="frequency")
     Integer frequency;
 
     @ManyToOne
-    @JoinColumn(name="vaccineId")
+    @JoinColumn(name="vaccine_id")
     Vaccine vaccine;
 }

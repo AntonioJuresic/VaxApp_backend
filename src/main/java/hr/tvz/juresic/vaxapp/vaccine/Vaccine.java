@@ -1,5 +1,6 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.vaccine;
 
+import hr.tvz.juresic.vaxapp.sideeffect.SideEffect;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,21 +25,21 @@ public class Vaccine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="researchName")
+    @Column(name="research_name")
     private String researchName;
 
-    @Column(name="manufacturerName")
+    @Column(name="manufacturer_name")
     private String manufacturerName;
 
-    @Column(name="vaccineType")
+    @Column(name="vaccine_type")
     @Enumerated(EnumType.STRING)
-    @JoinTable(name = "VaccineType", joinColumns = @JoinColumn(name = "vaccineTypeName"))
+    @JoinTable(name = "vaccine_type", joinColumns = @JoinColumn(name = "vaccine_type_name"))
     private VaccineType vaccineType;
 
-    @Column(name="numberOfDoses")
-    private Integer numberOfDoses;
+    @Column(name="number_of_shots")
+    private Integer numberOfShots;
 
-    @Column(name="availableDoses")
+    @Column(name="available_doses")
     private Integer availableDoses;
 
     @OneToMany(mappedBy = "vaccine", fetch = FetchType.EAGER, orphanRemoval = true)

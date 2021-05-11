@@ -1,4 +1,4 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.vaccine;
 
 import lombok.Data;
 
@@ -18,11 +18,11 @@ public class VaccineCommand {
 
     @NotBlank(message = "Vaccine type must not be empty")
     @Pattern(regexp="^(RNA|VIRAL_VECTOR)$", message="Vaccine type must be RNA or VIRAL_VECTOR")
-    private String vaccineType;
+    private String type;
 
     @NotNull(message = "Number of doses must not be empty")
     @PositiveOrZero(message = "Number of doses must be zero or more")
-    private Integer numberOfDoses;
+    private Integer numberOfShots;
 
     @NotNull(message = "Available doses must not be empty")
     @PositiveOrZero(message = "Available doses must be zero or more")

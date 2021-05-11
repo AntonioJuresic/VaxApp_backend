@@ -1,6 +1,4 @@
-package hr.tvz.juresic.vaxapp;
-
-import org.springframework.http.ResponseEntity;
+package hr.tvz.juresic.vaxapp.vaccine;
 
 import java.util.List;
 

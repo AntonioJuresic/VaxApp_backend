@@ -1,4 +1,4 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.sideeffect;
 
 import java.util.List;
 

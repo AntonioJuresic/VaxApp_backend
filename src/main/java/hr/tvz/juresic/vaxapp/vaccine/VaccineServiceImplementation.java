@@ -1,4 +1,4 @@
-package hr.tvz.juresic.vaxapp;
+package hr.tvz.juresic.vaxapp.vaccine;
 
 import org.springframework.stereotype.Service;
 
@@ -30,11 +30,16 @@ public class VaccineServiceImplementation implements VaccineService{
 
         newVaccine.setResearchName(vaccineCommand.getResearchName());
         newVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
-        newVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getVaccineType()));
-        newVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
+        newVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getType()));
+        newVaccine.setNumberOfShots(vaccineCommand.getNumberOfShots());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
+        System.out.println("===================================================================================");
+        System.out.println(newVaccine.toString());
+
         Vaccine newlyAddedVaccine = vaccineRepository.saveAndFlush(newVaccine);
+
+        System.out.println(newlyAddedVaccine.toString());
 
         return mapVaccinesToDTO(newlyAddedVaccine);
     }
@@ -49,8 +54,8 @@ public class VaccineServiceImplementation implements VaccineService{
         if(updatedVaccine != null) {
             updatedVaccine.setResearchName(researchName);
             updatedVaccine.setManufacturerName(vaccineCommand.getManufacturerName());
-            updatedVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getVaccineType()));
-            updatedVaccine.setNumberOfDoses(vaccineCommand.getNumberOfDoses());
+            updatedVaccine.setVaccineType(VaccineType.valueOf(vaccineCommand.getType()));
+            updatedVaccine.setNumberOfShots(vaccineCommand.getNumberOfShots());
             updatedVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
             return mapVaccinesToDTO(vaccineRepository.saveAndFlush(updatedVaccine));
@@ -66,6 +71,12 @@ public class VaccineServiceImplementation implements VaccineService{
     }
 
     private VaccineDTO mapVaccinesToDTO(final Vaccine vaccine) {
-        return new VaccineDTO(vaccine.getResearchName(), vaccine.getManufacturerName(), vaccine.getAvailableDoses());
+        return new VaccineDTO(
+                vaccine.getResearchName(),
+                vaccine.getManufacturerName(),
+                vaccine.getVaccineType().toString(),
+                vaccine.getNumberOfShots(),
+                vaccine.getAvailableDoses()
+        );
     }
 }
