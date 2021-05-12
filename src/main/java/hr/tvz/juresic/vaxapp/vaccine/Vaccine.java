@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 enum VaccineType {
-    RNA, VIRAL_VECTOR
+    MRNA, VIRAL_VECTOR
 }
 
 @Data

@@ -17,7 +17,7 @@ public class VaccineCommand {
     private String manufacturerName;
 
     @NotBlank(message = "Vaccine type must not be empty")
-    @Pattern(regexp="^(RNA|VIRAL_VECTOR)$", message="Vaccine type must be RNA or VIRAL_VECTOR")
+    @Pattern(regexp="^(MRNA|VIRAL_VECTOR)$", message="Vaccine type must be MRNA or VIRAL_VECTOR")
     private String type;
 
     @NotNull(message = "Number of doses must not be empty")
