@@ -36,7 +36,7 @@ public class VaccineController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_CREATOR", "ROLE_ADMIN"})
     @PostMapping
     public ResponseEntity<VaccineDTO> addVaccine(@Valid @RequestBody final VaccineCommand vaccineCommand) {
 

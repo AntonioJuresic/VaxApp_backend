@@ -17,12 +17,15 @@ VALUES ('Crvenilo', 'Crvenilo kod ušiju.', 10, 1),
 
 INSERT INTO authority(id, name)
 VALUES (1, 'ROLE_ADMIN'),
-       (2, 'ROLE_USER');
+       (2, 'ROLE_USER'),
+       (3, 'ROLE_CREATOR');
 
 INSERT INTO user(id, username, password, first_name, last_name, authorityId)
 VALUES (1, 'admin', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'admin', 'admin', 1),
-       (2, 'user', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'user', 'user', 2);
+       (2, 'user', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'user', 'user', 2),
+       (3, 'creator', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'creator', 'creator', 3);
 
 INSERT INTO user_authority(user_id, authority_id)
 VALUES (1, 1),
-       (2, 2);
+       (2, 2),
+       (3, 3);
