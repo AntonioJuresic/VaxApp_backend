@@ -19,13 +19,13 @@ public class VaccineController {
         this.vaccineServiceImplementation = vaccineServiceImplementation;
     }
 
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_CREATOR"})
     @GetMapping
     public ResponseEntity<List<VaccineDTO>> getAllVaccines(){
         return ResponseEntity.status(HttpStatus.OK).body(vaccineServiceImplementation.findAll());
     }
 
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_CREATOR"})
     @GetMapping("/{researchName}")
     public ResponseEntity<VaccineDTO> getVaccineByResearchName(@PathVariable final String researchName) {
         VaccineDTO vaccineDTO = vaccineServiceImplementation.findVaccineByResearchName(researchName);

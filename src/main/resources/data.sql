@@ -23,9 +23,12 @@ VALUES (1, 'ROLE_ADMIN'),
 INSERT INTO user(id, username, password, first_name, last_name, authorityId)
 VALUES (1, 'admin', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'admin', 'admin', 1),
        (2, 'user', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'user', 'user', 2),
-       (3, 'creator', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'creator', 'creator', 3);
+       (3, 'creator', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'creator', 'creator', 3),
+       (4, 'creator_admin', '$2y$12$MwzAZ2GRjhvCN9.H.PM.UOEltjJxCseHpewx4JUViFq7RZ79uiOoi', 'creator_admin', 'creator_admin', 4);;
 
 INSERT INTO user_authority(user_id, authority_id)
 VALUES (1, 1),
        (2, 2),
-       (3, 3);
+       (3, 3),
+       (4, 1),
+       (4, 3);
