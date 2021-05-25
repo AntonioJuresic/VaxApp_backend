@@ -21,7 +21,15 @@ public class VaccineServiceImplementation implements VaccineService{
 
     @Override
     public VaccineDTO findVaccineByResearchName(String researchName) {
-        return vaccineRepository.findByResearchName(researchName).stream().findFirst().map(this::mapVaccinesToDTO).orElse(null);
+        Vaccine vaccine = vaccineRepository.findByResearchName(researchName);
+
+        if (vaccine != null) {
+            return mapVaccinesToDTO(vaccine);
+        }
+
+        return null;
+
+        //return vaccineRepository.findByResearchName(researchName).stream().findFirst().map(this::mapVaccinesToDTO).orElse(null);
     }
 
     @Override
@@ -49,7 +57,7 @@ public class VaccineServiceImplementation implements VaccineService{
         //Riješenje preuzeto s interneta
         //https://www.baeldung.com/spring-data-partial-update
 
-        Vaccine updatedVaccine = vaccineRepository.findByResearchName(researchName).stream().findFirst().orElse(null);
+        Vaccine updatedVaccine = vaccineRepository.findByResearchName(researchName);
 
         if(updatedVaccine != null) {
             updatedVaccine.setResearchName(researchName);

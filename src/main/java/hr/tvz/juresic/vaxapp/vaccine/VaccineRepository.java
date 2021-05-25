@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface VaccineRepository extends JpaRepository<Vaccine, Long> {
-    List<Vaccine> findByResearchName(String researchName);
+    Vaccine findByResearchName(String researchName);
 
     @Transactional
     Integer removeByResearchName(String researchName);
