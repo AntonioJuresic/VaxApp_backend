@@ -39,9 +39,6 @@ public class VaccineController {
     @Secured("ROLE_ADMIN")
     @PostMapping
     public ResponseEntity<VaccineDTO> addVaccine(@Valid @RequestBody final VaccineCommand vaccineCommand) {
-
-        System.out.println("===================================================================================");
-
         VaccineDTO newVaccineDTO = vaccineServiceImplementation.saveVaccine(vaccineCommand);
 
         if(newVaccineDTO != null)

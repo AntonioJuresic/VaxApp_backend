@@ -94,7 +94,7 @@ class VaccineServiceImplementationTest {
         );
 
         Vaccine vaccine = new Vaccine(
-                command.getResearchName(),
+                researchName,
                 command.getManufacturerName(),
                 VaccineType.valueOf(command.getType()),
                 command.getNumberOfShots(),
@@ -123,17 +123,6 @@ class VaccineServiceImplementationTest {
     @DirtiesContext
     @Test
     void deleteVaccine() {
-        /*when(vaccineRepository.removeByResearchName("TRUE")).thenReturn(
-                new Integer(1)
-        );
-
-        when(vaccineRepository.removeByResearchName("FALSE")).thenReturn(
-                new Integer(0)
-        );
-
-        Assertions.assertEquals(vaccineService.findVaccineByResearchName("TRUE"), new Integer(1));
-        Assertions.assertEquals(vaccineService.findVaccineByResearchName("FALSE"), new Integer(0));*/
-
         vaccineService.deleteVaccine("researchName");
         verify(vaccineRepository).removeByResearchName("researchName");
     }

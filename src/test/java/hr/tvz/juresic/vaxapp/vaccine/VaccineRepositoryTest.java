@@ -17,7 +17,6 @@ class VaccineRepositoryTest {
     @Test
     void findByResearchName() {
         Vaccine vaccine = vaccineRepository.findByResearchName("BNT162b2");
-
         Assertions.assertNotNull(vaccine);
     }
 
@@ -26,9 +25,6 @@ class VaccineRepositoryTest {
     @Test
     void removeByResearchName() {
         Integer removedVaccine = vaccineRepository.removeByResearchName("BNT162b2");
-
-        System.out.println(removedVaccine);
-
         Assertions.assertEquals(removedVaccine, 1);
     }
 }
