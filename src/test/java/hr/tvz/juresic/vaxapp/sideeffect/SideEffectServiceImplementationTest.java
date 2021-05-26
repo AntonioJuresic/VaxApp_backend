@@ -37,7 +37,7 @@ class SideEffectServiceImplementationTest {
 
     @Test
     void findSideEffectByVaccineResearchName() {
-        when(sideEffectRepository.findByVaccine_ResearchName(matches("DOESEXIST"))).thenReturn(
+        when(sideEffectRepository.findByVaccine_ResearchName(matches("TRUE"))).thenReturn(
                 new ArrayList<SideEffect>(Arrays.asList(
                         new SideEffect(),
                         new SideEffect(),
@@ -45,11 +45,11 @@ class SideEffectServiceImplementationTest {
                 ))
         );
 
-        when(sideEffectRepository.findByVaccine_ResearchName(matches("DOESNNOTEXIST"))).thenReturn(
+        when(sideEffectRepository.findByVaccine_ResearchName(matches("FALSE"))).thenReturn(
                 null
         );
 
-        Assertions.assertNotNull(sideEffectRepository.findByVaccine_ResearchName("DOESEXIST"));
-        Assertions.assertNull(sideEffectRepository.findByVaccine_ResearchName("DOESNNOTEXIST"));
+        Assertions.assertNotNull(sideEffectRepository.findByVaccine_ResearchName("TRUE"));
+        Assertions.assertNull(sideEffectRepository.findByVaccine_ResearchName("FALSE"));
     }
 }

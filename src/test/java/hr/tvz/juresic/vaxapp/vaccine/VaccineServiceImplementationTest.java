@@ -30,7 +30,7 @@ class VaccineServiceImplementationTest {
                 new ArrayList<Vaccine>(Arrays.asList(
                         new Vaccine("test1", "test1", VaccineType.MRNA, 10, 10),
                         new Vaccine("test2", "test2", VaccineType.MRNA, 10, 10),
-                        new Vaccine("test2", "test2", VaccineType.MRNA, 10, 10)
+                        new Vaccine("test3", "test3", VaccineType.MRNA, 10, 10)
                 ))
         );
 
@@ -41,7 +41,7 @@ class VaccineServiceImplementationTest {
     @Test
     void findVaccineByResearchName() {
         when(vaccineRepository.findByResearchName(matches("TRUE"))).thenReturn(
-                new Vaccine("TRUE", "TRUE", VaccineType.MRNA, 10, 10)
+                new Vaccine("test4", "test4", VaccineType.MRNA, 10, 10)
         );
 
         when(vaccineRepository.findByResearchName(matches("FALSE"))).thenReturn(
@@ -105,25 +105,34 @@ class VaccineServiceImplementationTest {
                 new Vaccine("UPDATE", "UPDATE", VaccineType.MRNA, 10, 10)
         );
 
-        when(vaccineRepository.findByResearchName(matches("FALSE"))).thenReturn(
-                null
-        );
-
         when(vaccineRepository.saveAndFlush(vaccine)).thenReturn(
                 new Vaccine("UPDATED", "UPDATED", VaccineType.MRNA, 10, 10)
         );
 
-        Assertions.assertNotNull(vaccineService.findVaccineByResearchName("UPDATE"));
-        Assertions.assertNull(vaccineService.findVaccineByResearchName("FALSE"));
+        when(vaccineRepository.findByResearchName(matches("FALSE"))).thenReturn(
+                null
+        );
 
+        Assertions.assertNotNull(vaccineService.findVaccineByResearchName("UPDATE"));
         Assertions.assertNotNull(vaccineRepository.saveAndFlush(vaccine));
+
+        Assertions.assertNull(vaccineService.findVaccineByResearchName("FALSE"));
     }
 
     @Transactional
     @DirtiesContext
     @Test
     void deleteVaccine() {
-        vaccineService.deleteVaccine("researchName");
-        verify(vaccineRepository).removeByResearchName("researchName");
+        when(vaccineService.deleteVaccine("TRUE")).thenReturn(
+                new Integer(1)
+        );
+
+        when(vaccineService.deleteVaccine("FALSE")).thenReturn(
+                new Integer(0)
+        );
+
+
+        Assertions.assertEquals(vaccineService.deleteVaccine("TRUE"), 1);
+        Assertions.assertEquals(vaccineService.deleteVaccine("FALSE"), 0);
     }
 }
