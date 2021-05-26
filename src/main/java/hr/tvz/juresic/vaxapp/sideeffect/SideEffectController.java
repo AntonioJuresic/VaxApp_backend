@@ -26,7 +26,7 @@ public class SideEffectController {
 
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping(params = "vaccineResearchName")
-    public ResponseEntity<List<SideEffectDTO>> getVaccineByResearchName(@RequestParam final String vaccineResearchName) {
+    public ResponseEntity<List<SideEffectDTO>> getSideEffectByResearchName(@RequestParam final String vaccineResearchName) {
         return ResponseEntity.status(HttpStatus.OK).body(sideEffectServiceImplementation.findSideEffectByVaccineResearchName(vaccineResearchName));
     }
 }

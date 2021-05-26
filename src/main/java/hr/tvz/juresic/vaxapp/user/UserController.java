@@ -24,10 +24,6 @@ public class UserController {
         Optional<String> username = SecurityUtils.getCurrentUserUsername();
 
         if(username.isPresent()) {
-            System.out.println("------------------------------------------");
-            System.out.println(SecurityUtils.getCurrentUserJWT());
-            System.out.println("------------------------------------------");
-
             UserDTO userDTO = userServiceImplementation.findUserByUsername(username.get());
 
             if(userDTO != null) {
