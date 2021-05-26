@@ -44,4 +44,12 @@ public class Vaccine {
 
     @OneToMany(mappedBy = "vaccine", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SideEffect> sideEffectList;
+
+    public Vaccine(String researchName, String manufacturerName, VaccineType vaccineType, Integer numberOfShots, Integer availableDoses) {
+        this.researchName = researchName;
+        this.manufacturerName = manufacturerName;
+        this.vaccineType = vaccineType;
+        this.numberOfShots = numberOfShots;
+        this.availableDoses = availableDoses;
+    }
 }

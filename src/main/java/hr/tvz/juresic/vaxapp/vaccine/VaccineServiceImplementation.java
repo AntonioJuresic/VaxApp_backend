@@ -42,9 +42,6 @@ public class VaccineServiceImplementation implements VaccineService{
         newVaccine.setNumberOfShots(vaccineCommand.getNumberOfShots());
         newVaccine.setAvailableDoses(vaccineCommand.getAvailableDoses());
 
-        System.out.println("===================================================================================");
-        System.out.println(newVaccine.toString());
-
         Vaccine newlyAddedVaccine = vaccineRepository.saveAndFlush(newVaccine);
 
         System.out.println(newlyAddedVaccine.toString());

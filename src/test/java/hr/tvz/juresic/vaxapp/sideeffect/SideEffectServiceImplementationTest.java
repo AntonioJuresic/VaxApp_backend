@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.matches;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class SideEffectServiceImplementationTest {
@@ -16,19 +18,38 @@ class SideEffectServiceImplementationTest {
     @Autowired
     SideEffectServiceImplementation sideEffectServiceImplementation;
 
+    @MockBean
+    SideEffectRepository sideEffectRepository;
+
     @Test
     void findAll() {
-        List<SideEffectDTO> sideEffectDTOList = sideEffectServiceImplementation.findAll();
+        when(sideEffectRepository.findAll()).thenReturn(
+                new ArrayList<SideEffect>(Arrays.asList(
+                        new SideEffect(),
+                        new SideEffect(),
+                        new SideEffect()
+                ))
+        );
 
-        Assertions.assertNotNull(sideEffectDTOList);
-        Assertions.assertEquals(sideEffectDTOList.size(), 6);
+        Assertions.assertNotNull(sideEffectRepository.findAll());
+        Assertions.assertEquals(sideEffectRepository.findAll().size(), 3);
     }
 
     @Test
     void findSideEffectByVaccineResearchName() {
-        List<SideEffectDTO> sideEffectList = sideEffectServiceImplementation.findSideEffectByVaccineResearchName("BNT162b2");
+        when(sideEffectRepository.findByVaccine_ResearchName(matches("DOESEXIST"))).thenReturn(
+                new ArrayList<SideEffect>(Arrays.asList(
+                        new SideEffect(),
+                        new SideEffect(),
+                        new SideEffect()
+                ))
+        );
 
-        Assertions.assertNotNull(sideEffectList);
-        Assertions.assertEquals(sideEffectList.size(), 3);
+        when(sideEffectRepository.findByVaccine_ResearchName(matches("DOESNNOTEXIST"))).thenReturn(
+                null
+        );
+
+        Assertions.assertNotNull(sideEffectRepository.findByVaccine_ResearchName("DOESEXIST"));
+        Assertions.assertNull(sideEffectRepository.findByVaccine_ResearchName("DOESNNOTEXIST"));
     }
 }
