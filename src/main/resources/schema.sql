@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS side_effect;
+DROP TABLE IF EXISTS vaccine;
+DROP TABLE IF EXISTS vaccine_type;
+DROP TABLE IF EXISTS user_authority;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS authority;
+
 CREATE TABLE IF NOT EXISTS vaccine_type
 (
     id                BIGINT GENERATED ALWAYS AS IDENTITY,

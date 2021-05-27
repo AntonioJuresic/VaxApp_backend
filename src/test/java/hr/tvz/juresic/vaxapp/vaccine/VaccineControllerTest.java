@@ -73,7 +73,7 @@ class VaccineControllerTest {
 
     @Test
     void getVaccineByResearchName() throws Exception {
-        when(vaccineServiceImplementation.findVaccineByResearchName(any())).thenReturn(
+        when(vaccineServiceImplementation.findVaccineByResearchName("BNT162b2")).thenReturn(
                 new VaccineDTO()
         );
 
@@ -88,7 +88,7 @@ class VaccineControllerTest {
 
     @Test
     void getVaccineByResearchNameForbidden() throws Exception {
-        when(vaccineServiceImplementation.findVaccineByResearchName(any())).thenReturn(
+        when(vaccineServiceImplementation.findVaccineByResearchName("DOES EXIST")).thenReturn(
                 new VaccineDTO()
         );
 
@@ -100,9 +100,10 @@ class VaccineControllerTest {
                 .andExpect(status().isForbidden());
     }
 
+    // Metoda je implementirana u pripremi
     @Test
     void getVaccineByResearchNameNotFound() throws Exception {
-        when(vaccineServiceImplementation.findVaccineByResearchName(any())).thenReturn(
+        when(vaccineServiceImplementation.findVaccineByResearchName("DOESN'T EXIST")).thenReturn(
                 null
         );
 

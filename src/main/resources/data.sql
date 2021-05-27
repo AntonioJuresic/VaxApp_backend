@@ -1,8 +1,8 @@
-DELETE FROM side_effect;
+/*DELETE FROM side_effect;
 DELETE FROM vaccine;
 DELETE FROM user_authority;
 DELETE FROM user;
-DELETE FROM authority;
+DELETE FROM authority;*/
 
 INSERT INTO Vaccine (id, research_name, manufacturer_name, vaccine_type, number_of_shots, available_doses)
 VALUES (1, 'AZD1222', 'Astra Zeneca', 'VIRAL_VECTOR', 1, 2000),

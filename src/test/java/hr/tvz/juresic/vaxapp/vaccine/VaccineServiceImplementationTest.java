@@ -38,18 +38,19 @@ class VaccineServiceImplementationTest {
         Assertions.assertEquals(vaccineService.findAll().size(), 3);
     }
 
+    // Metoda je implementirana u pripremi
     @Test
     void findVaccineByResearchName() {
-        when(vaccineRepository.findByResearchName(matches("TRUE"))).thenReturn(
+        when(vaccineRepository.findByResearchName(matches("DOES EXIST"))).thenReturn(
                 new Vaccine("test4", "test4", VaccineType.MRNA, 10, 10)
         );
 
-        when(vaccineRepository.findByResearchName(matches("FALSE"))).thenReturn(
+        when(vaccineRepository.findByResearchName(matches("DOESN'T EXIST"))).thenReturn(
                 null
         );
 
-        Assertions.assertNotNull(vaccineService.findVaccineByResearchName("TRUE"));
-        Assertions.assertNull(vaccineService.findVaccineByResearchName("FALSE"));
+        Assertions.assertNotNull(vaccineService.findVaccineByResearchName("DOES EXIST"));
+        Assertions.assertNull(vaccineService.findVaccineByResearchName("DOESN'T EXIST"));
     }
 
 

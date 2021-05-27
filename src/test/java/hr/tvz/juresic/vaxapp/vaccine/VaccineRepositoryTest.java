@@ -14,10 +14,14 @@ class VaccineRepositoryTest {
     @Autowired
     VaccineRepository vaccineRepository;
 
+    // Metoda je implementirana u pripremi
     @Test
     void findByResearchName() {
         Vaccine vaccine = vaccineRepository.findByResearchName("BNT162b2");
+        Vaccine vaccine2 = vaccineRepository.findByResearchName("DOESNT'EXIST");
+
         Assertions.assertNotNull(vaccine);
+        Assertions.assertNull(vaccine2);
     }
 
     @Transactional
