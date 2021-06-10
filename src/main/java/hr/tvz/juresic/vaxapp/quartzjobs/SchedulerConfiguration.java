@@ -29,4 +29,19 @@ public class SchedulerConfiguration {
                 .withSchedule(scheduleBuilder)
                 .build();
     }
+
+    @Bean
+    public Trigger getAllVaccinesJobTriggerForEachMondayAndMondayAtNoon() {
+
+        // https://www.freeformatter.com/cron-expression-generator-quartz.html
+        // 0 0 12 ? * MON,FRI *
+        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0 0 12 ? * MON,FRI *");
+
+        return TriggerBuilder.newTrigger()
+                .forJob(getAllVaccinesJobDetail())
+                .withIdentity("getAllVaccinesJobTriggerForEachMondayAndMondayAtNoon")
+                .startNow()
+                .withSchedule(cronScheduleBuilder)
+                .build();
+    }
 }
